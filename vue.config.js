@@ -4,8 +4,8 @@ module.exports = {
     // 配置信息：https://github.com/chimurai/http-proxy-middleware#options
     proxy: {
       "/api": {
-        target: //"http://app.jinbaoyuan168.com"
-                "http://m.jinbaoyuan168.com"
+        target: "http://app.jinbaoyuan168.com"
+                //"http://m.jinbaoyuan168.com"
         , //设置调用的目标接口主机名和商品
         changeOrigin: true, //是否跨域
         ws: false, // 是否是webservice

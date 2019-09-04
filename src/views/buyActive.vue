@@ -7,7 +7,7 @@
     <div class="banner">
       <img :src="imgUrl" alt />
     </div>
-    <div class="goodsbox goodsbox2">
+    <div class="goodsbox goodsbox2" v-if="benqi != null">
       <div class="goos_top">
         <span class="now">本期报名</span>
       </div>
@@ -35,25 +35,25 @@
       </div>
       <div class="goos_list">
         <div class="img_box">
-          <img src="" alt />
+          <img :src="pic" alt />
         </div>
         <div class="font_box">
-          <p class="title"></p>
+          <p class="title">{{jpic.title}}</p>
           <p class="money">
             抢购价：
-            <span>￥</span>
-            <del>￥</del>
+            <span>￥{{shangqi.prices}}</span>
+            <del>￥{{jpic.oldprice}}</del>
           </p>
-          <p class="sign_time">报名时间：{{$moment().format('MM月DD日 hh:mm')}}-{{$moment().format('MM月DD日 hh:mm') }}</p>
-          <p class="rush_time">抢购时间：{{$moment().format('MM月DD日 hh:mm')}}</p>
+          <p class="sign_time">报名时间：{{$moment(shangqi.start_time).format('MM月DD日 hh:mm')}}-{{$moment(shangqi.rush_endtime).format('MM月DD日 hh:mm') }}</p>
+          <p class="rush_time">抢购时间：{{$moment(shangqi.rush_stime).format('MM月DD日 hh:mm')}}</p>
         </div>
       </div>
-      <div class="shanglucky">
+      <div class="shanglucky" v-if="shangqi !=null">
         <span class="title">上期抢中用户</span>
         <ul>
-          <li>
-            <div class="left">用户：</div>
-            <div class="right"></div>
+          <li v-for="(list,index) in select" :key="index">
+            <div class="left">用户：{{list.phone}}</div>
+            <div class="right">{{list.time}}</div>
           </li>
         </ul>
       </div>
@@ -77,7 +77,12 @@ export default {
   name: "buyActive",
   data() {
     return {
-    imgUrl:""
+    imgUrl:"",
+    benqi:"",
+    shangqi:"",
+    jpic:"",
+    select:"",
+    pic:""
     };
   },
   created() {
@@ -94,9 +99,12 @@ export default {
       });
       this.axios.post("/api/appapi/Active/Index_ajax").then(res => {
         console.log(res.data)
-        if(res.data.data==100){
-          this.$router
-        }
+        var rush_data = res.data.rush_data
+        this.benqi = rush_data
+        this.shangqi = res.data.over_data
+        this.jpic = res.data.over_data.goods
+        this.select = this.shangqi.select
+        this.pic = res.data.over_data.goods.pic[0]
       });
     },
     myorder() {

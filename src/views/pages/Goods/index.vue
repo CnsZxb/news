@@ -44,6 +44,18 @@ export default {
       goodsImg: "",
       goodslist: "",
       imgs:"",
+      zifei:"",
+      jiagong:"",
+      youhui_id:"",
+      category_id:"",
+      gid:"",
+      name:"",
+      qian:"",
+      baodanfei:"",
+      zhouqi:"",
+      daimaifei:"",
+      shouyi:"",
+      addnum:"1"
     };
   },
   created() {
@@ -65,26 +77,87 @@ export default {
         console.log(res)
         this.imgs = htmlRestore(abc);
         var info = res.data.info
+        this.zifei = res.data.zhuang
+        this.jiagong = info.jiagong
+        this.youhui_id = info.youhui_id
+        this.category_id=info.category_id
+        this.gid = info.id
+        this.name = info.title
+        this.qian = info.price
+        this.baodanfei = info.fuwu_price
+        this.zhouqi = info.zhouqi
+        this.daimaifei = info.shouxufei
+        this.shouyi = info.shouyi
+        this.specjia = info.spec[0].specjia
+        this.specName =info.spec[0].specName
+        this.specPrice = info.spec[0].specPrice
       });
     },
     back() {
       this.$router.go(-1);
     },
     goumai(){
-      this.axios({
-        url:"/api/appapi/Order/order_post",
-        methods:"post",
-        params:{
-          
-        }
-      }).then(res=>{
-        console.log(res);
-        if(res.data.errcode==100){
-          this.$router.replace("/")
-        }else if(res.data.errcode==301){
-          this.$router.replace('/login')
-        }
-      })
+           
+        if(this.zifei=="li"){
+          this.axios({
+            url:"/api/appapi/Order/order_post",
+            methods:"post",
+            params:{
+              gid:this.gid,
+              youhui_id:this.youhui_id,
+              total:this.qian,
+              name:this.name,
+              dai_fei:this.specjia,
+              category_id:this.category_id,
+              jiagong:this.jiagong,
+              baodanfei:this.baodanfei,
+              zhuang:"fei",
+              specName:this.specName,
+              num:this.addnum,
+              danjia:this.qian,
+              daimaifei:this.daimaifei,
+              shouyi:this.shouyi,
+              zhouqi:this.zhouqi
+            }
+          }).then(res=>{
+           if(res.data.errcode==100){
+             this.$router.replace("/")
+           }else if(res.data.errcode==301){
+             this.$router.replace("/login")
+           }else{
+             console.error();  
+           }
+          })
+        }else{
+           console.log('addnum='+this.addnum+';total='+this.specPrice+';gid='+this.gid+';category_id='+this.category_id+';danjia='+this.qian);
+        	console.log('name='+this.name+';dai_fei='+this.specjia+';youhui_id='+this.youhui_id+';zhuang='+this.zifei+';specName='+this.specName+';specPrice='+this.specPrice);
+          this.axios({
+              url:"/api/appapi/Order/order_post",
+            methods:"post",
+            params:{
+              gid:this.gid,
+              specName:this.specName,
+              specPrice:this.specPrice,
+              danjia:this.qian,
+              dai_fei:this.specjia,
+              youhui_id:this.youhui_id,
+              category_id:this.category_id,
+              name:this.name,
+              num:this.addnum,
+              total:this.specPrice,
+              zhuang:"fei"
+            }
+          }).then(data=>{
+            console.log(data)
+              if(data.data.errcode==100){
+             this.$router.replace("/")
+           }else if(data.data.errcode==301){
+             this.$router.replace("/login")
+           }else{
+             console.error();  
+           }
+          })
+       }
     }
   },
 }

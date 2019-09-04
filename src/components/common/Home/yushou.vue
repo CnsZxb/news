@@ -2,11 +2,13 @@
   <div class="yushou">
     <div class="yu_top">
       <h2>预售商品</h2>
-      <ul>
+      <ul>   
         <li v-for="acim in itmeImg" :key="acim.id">
+          <router-link  :to="{path:'/goodsItem',query:{id:acim.gid,zhuang}}">
           <div class="img_list">
             <img :src="acim.pic" alt />
           </div>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -18,7 +20,8 @@ export default {
   name: "yushou",
   data() {
     return {
-      itmeImg: []
+      itmeImg: [],
+      zhuang:"li"
     };
   },
   created() {

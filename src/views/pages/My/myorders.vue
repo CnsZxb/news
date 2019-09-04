@@ -52,7 +52,7 @@
                 <span>×{{item.shuliang}}</span>
               </div>
             </div>
-            <span class="clock">{{ `${day}天 ${hr}小时 ${min}分钟 ${sec}秒` }}</span>
+            <!-- <span class="clock">{{ `${day}天 ${hr}小时 ${min}分钟 ${sec}秒` }}</span> -->
             <div class="d_btn">
               <button class="puy">立即支付</button>
               <button class="quit">取消订单</button>
@@ -82,12 +82,13 @@ export default {
       day: 0,
       hr: 0,
       min: 0,
-      sec: 0
+      sec: 0,
+      times:""
     };
   },
   created() {
     this.orderlist();
-    this.countdown();
+    // this.countdown();
   },
   methods: {
     back() {
@@ -108,23 +109,23 @@ export default {
         this.itemImg = res.data.res_data.goods_list;
       });
     },
-    countdown() {
-      const now = Date.parse(new Date());
-      const end = Date.parse(new Date("2019-8-30")) + 86400 * 1000;//静态时间
-      const msec = end - now;
-      let day = parseInt(msec / 1000 / 60 / 60 / 24);
-      let hr = parseInt((msec / 1000 / 60 / 60) % 24);
-      let min = parseInt((msec / 1000 / 60) % 60);
-      let sec = parseInt((msec / 1000) % 60);
-      this.day = day;
-      this.hr = hr > 9 ? hr : "0" + hr;
-      this.min = min > 9 ? min : "0" + min;
-      this.sec = sec > 9 ? sec : "0" + sec;
-      const that = this;
-      setTimeout(function() {
-        that.countdown();
-      }, 1000);
-    }
+    // countdown() {
+    //   const now = Date.parse(new Date());
+    //   const end = Date.parse(new Date(this.times)) + 86400 * 1000;//静态时间
+    //   const msec = end - now;
+    //   let day = parseInt(msec / 1000 / 60 / 60 / 24);
+    //   let hr = parseInt((msec / 1000 / 60 / 60) % 24);
+    //   let min = parseInt((msec / 1000 / 60) % 60);
+    //   let sec = parseInt((msec / 1000) % 60);
+    //   this.day = day;
+    //   this.hr = hr > 9 ? hr : "0" + hr;
+    //   this.min = min > 9 ? min : "0" + min;
+    //   this.sec = sec > 9 ? sec : "0" + sec;
+    //   const that = this;
+    //   setTimeout(function() {
+    //     that.countdown();
+    //   }, 1000);
+    // }
   }
 };
 </script>
