@@ -121,7 +121,7 @@ export default {
             }
           }).then(res=>{
            if(res.data.errcode==100){
-             this.$router.replace("/")
+             this.$router.replace("/myorders")
            }else if(res.data.errcode==301){
              this.$router.replace("/login")
            }else{
@@ -150,7 +150,7 @@ export default {
           }).then(data=>{
             console.log(data)
               if(data.data.errcode==100){
-             this.$router.replace("/")
+             this.$router.replace("/myorders")
            }else if(data.data.errcode==301){
              this.$router.replace("/login")
            }else{
