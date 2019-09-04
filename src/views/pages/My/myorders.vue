@@ -135,6 +135,8 @@ export default {
   overflow-x: hidden;
 }
 .myorders header {
+  position: fixed;
+  top: 0;
   width: 100%;
   background: linear-gradient(
     270deg,
@@ -146,6 +148,7 @@ export default {
   color: #fff;
   line-height: 3rem;
   padding: 0 2%;
+  z-index: 2;
 }
 
 i {
@@ -158,7 +161,7 @@ i {
   top: 0rem;
   width: 100%;
   display: flex;
-  margin-top: 2.25rem;
+  margin-top: 3rem;
   justify-content: space-around;
   align-items: center;
   font-size: 0.7rem;
@@ -179,7 +182,7 @@ i {
 }
 .my_tab {
   width: 100%;
-  margin-top: 2.1rem;
+  margin-top: 3.1rem;
   display: flex;
   justify-content: space-around;
   list-style: none;
