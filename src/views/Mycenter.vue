@@ -83,7 +83,7 @@ export default {
       this.axios.post("/api/appapi/My/my_ajax").then(data => {
         console.log(data);
         if(data.data.is_login==false){
-          this.$router.replace("/login")
+          this.$router.replace("/submit_order")
         }
       });
       this.axios({
@@ -94,6 +94,8 @@ export default {
         var info = res.data.data;
         if (info.username == null) {
           this.myname = info.phone;
+        }else{
+           this.myname = info.username;
         }
       });
     },

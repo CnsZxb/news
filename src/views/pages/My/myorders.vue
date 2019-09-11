@@ -54,7 +54,7 @@
             </div>
             <!-- <span class="clock">{{ `${day}天 ${hr}小时 ${min}分钟 ${sec}秒` }}</span> -->
             <div class="d_btn">
-              <button class="puy">立即支付</button>
+              <button class="puy" @click="puy">立即支付</button>
               <button class="quit">取消订单</button>
             </div>
           </li>
@@ -91,6 +91,9 @@ export default {
     // this.countdown();
   },
   methods: {
+    puy(){
+       this.$router.replace("/submit_order")
+    },
     back() {
       this.$router.go(-1);
     },

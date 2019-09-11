@@ -97,7 +97,7 @@ export default {
       this.$router.go(-1);
     },
     goumai(){
-           
+         
         if(this.zifei=="li"){
           this.axios({
             url:"/api/appapi/Order/order_post",
@@ -111,7 +111,7 @@ export default {
               category_id:this.category_id,
               jiagong:this.jiagong,
               baodanfei:this.baodanfei,
-              zhuang:"fei",
+              zhuang:"li",
               specName:this.specName,
               num:this.addnum,
               danjia:this.qian,
@@ -121,7 +121,7 @@ export default {
             }
           }).then(res=>{
            if(res.data.errcode==100){
-             this.$router.replace("/myorders")
+            //  this.$router.replace("/submit_order")
            }else if(res.data.errcode==301){
              this.$router.replace("/login")
            }else{
@@ -129,8 +129,6 @@ export default {
            }
           })
         }else{
-           console.log('addnum='+this.addnum+';total='+this.specPrice+';gid='+this.gid+';category_id='+this.category_id+';danjia='+this.qian);
-        	console.log('name='+this.name+';dai_fei='+this.specjia+';youhui_id='+this.youhui_id+';zhuang='+this.zifei+';specName='+this.specName+';specPrice='+this.specPrice);
           this.axios({
               url:"/api/appapi/Order/order_post",
             methods:"post",
@@ -150,7 +148,8 @@ export default {
           }).then(data=>{
             console.log(data)
               if(data.data.errcode==100){
-             this.$router.replace("/myorders")
+           var oid = data.data.id
+             this.$router.push({path:"/submit_order?",query:{ id:oid}})
            }else if(data.data.errcode==301){
              this.$router.replace("/login")
            }else{
