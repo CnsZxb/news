@@ -4,7 +4,7 @@
       <i class="fa fa-angle-left fa-2x" @click="back"></i>
       <span>提交订单</span>
     </header>
-    <div class="submit_top">
+    <div class="submit_top" v-if="show">
       <i class="fa fa-map-marker fa-2x"></i>
       <div class="user_info">
         <p class="user_name">
@@ -19,11 +19,11 @@
       </div>
       <i class="fa fa-angle-right fa-2x"></i>
     </div>
-    <div class="order_num">
+    <div class="order_num" v-if="show">
       <i class="fa fa-file-text"></i>
       <span>订单号：{{dingdan.order_id}}</span>
     </div>
-    <div class="goods">
+    <div class="goods" v-if="show">
       <div class="img_box">
         <img :src="goods.pic" alt />
       </div>
@@ -32,7 +32,7 @@
         <p class="goods_price">¥{{goods.price}}</p>
       </div>
     </div>
-    <div class="goods_num">
+    <div class="goods_num" v-if="show">
       <span>购买数量</span>
       <div class="goods_btn">
         <i class="fa fa-minus-circle" @click="minus"></i>
@@ -40,7 +40,7 @@
         <i class="fa fa-plus-circle" @click="plus"></i>
       </div>
     </div>
-    <div class="goods_list2">
+    <div class="goods_list2" v-if="show">
       <div class="list1">
         <div class="list_num">数量</div>
         <span class="number">{{goodsnum}}个</span>
@@ -58,7 +58,7 @@
         <span class="total">{{totalnum}}元</span>
       </div>
     </div>
-    <footer>
+    <footer v-if="show">
       <router-link to="#" class="link">提交订单</router-link>
     </footer>
   </div>
@@ -73,7 +73,8 @@ export default {
       totalnum: "",
       shouhuo:"",
       dingdan:"",
-      goods:""
+      goods:"",
+      show:false
     };
   },
   created() {
@@ -94,7 +95,6 @@ export default {
     },
     total() {
       var id = this.$route.query.id;
-      console.log(id) 
       this.axios({
         url:"/api/appapi/Order/order_li_ajax",
         methods:"post",
@@ -107,6 +107,7 @@ export default {
         this.dingdan = res.data.res_data.orderdata
         this.goods = res.data.res_data.goodsdata
          this.totalnum = this.goodsnum * this.goods.price;
+         this.show=true
       })
     }
   }
