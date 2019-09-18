@@ -4,7 +4,8 @@
       <i class="fa fa-angle-left fa-2x" @click="back"></i>
       <span>提交订单</span>
     </header>
-    <div class="submit_top" v-if="show">
+    <router-link :to="{path:'/'}" class="addadd" v-if="shouhuo==''">请添加收货地址</router-link>
+    <div class="submit_top" v-if="shouhuo!=''">
       <i class="fa fa-map-marker fa-2x"></i>
       <div class="user_info">
         <p class="user_name">
@@ -47,15 +48,15 @@
       </div>
       <div class="list2">
         <div class="list_num">商品总额</div>
-        <span class="total">{{totalnum}}元</span>
+        <span class="total">{{this.goodsnum * this.goods.price|addZero}}元</span>
       </div>
-        <div class="list3">
+      <div class="list3">
         <div class="list_num">优惠金额</div>
         <span class="total">0元</span>
       </div>
-        <div class="list4">
+      <div class="list4">
         <div class="list_num">共计：</div>
-        <span class="total">{{totalnum}}元</span>
+        <span class="total">{{this.goodsnum * this.goods.price|addZero}}元</span>
       </div>
     </div>
     <footer v-if="show">
@@ -71,10 +72,10 @@ export default {
     return {
       goodsnum: "1",
       totalnum: "",
-      shouhuo:"",
-      dingdan:"",
-      goods:"",
-      show:false
+      shouhuo: "",
+      dingdan: "",
+      goods: "",
+      show: false
     };
   },
   created() {
@@ -91,24 +92,28 @@ export default {
     },
     plus() {
       this.goodsnum++;
-      this.total()
     },
     total() {
       var id = this.$route.query.id;
       this.axios({
-        url:"/api/appapi/Order/order_li_ajax",
-        methods:"post",
-        params:{
-          id:id
+        url: "/api/appapi/Order/order_li_ajax",
+        methods: "post",
+        params: {
+          id: id
         }
-      }).then(res=>{
-        console.log(res)
-        this.shouhuo = res.data.res_data.rec
-        this.dingdan = res.data.res_data.orderdata
-        this.goods = res.data.res_data.goodsdata
-         this.totalnum = this.goodsnum * this.goods.price;
-         this.show=true
-      })
+      }).then(res => {
+        console.log(res);
+        this.shouhuo = res.data.res_data.rec;
+        console.log(this.shouhuo);
+        this.dingdan = res.data.res_data.orderdata;
+        this.goods = res.data.res_data.goodsdata;
+        this.show = true;
+      });
+    }
+  },
+  filters: {
+    addZero: function(data) {
+      return data.toFixed(2);
     }
   }
 };
@@ -130,6 +135,15 @@ export default {
   line-height: 3rem;
   padding: 0 2%;
   z-index: 2;
+}
+.addadd {
+  display: block;
+  text-decoration: none;
+  background-color: #fff;
+  margin-top: 3rem;
+  height: 3rem;
+  line-height: 3rem;
+  border-bottom: 1px solid #cccccc;
 }
 .submit_top {
   height: 7rem;
@@ -223,25 +237,26 @@ export default {
   background-color: #fff;
 }
 .list1,
-.list2 ,.list3{
+.list2,
+.list3 {
   height: 3rem;
   line-height: 3rem;
   display: flex;
   justify-content: space-between;
 }
-.total{
+.total {
   color: #d0021b;
   font-weight: 600;
 }
-.list4{
- height: 3rem;
+.list4 {
+  height: 3rem;
   line-height: 3rem;
   text-align: right;
 }
-.list4 div{
+.list4 div {
   display: inline-block;
 }
-footer{
+footer {
   width: 100%;
   height: 4rem;
   border-top: 1px solid #cccccc;
@@ -251,7 +266,7 @@ footer{
   display: flex;
   align-items: center;
 }
-.link{
+.link {
   display: block;
   width: 90%;
   height: 3rem;

@@ -83,7 +83,7 @@ export default {
       this.axios.post("/api/appapi/My/my_ajax").then(data => {
         console.log(data);
         if(data.data.is_login==false){
-          this.$router.replace("/submit_order")
+          this.$router.replace("/login")
         }
       });
       this.axios({

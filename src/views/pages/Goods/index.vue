@@ -26,7 +26,7 @@
     <div class="introduce">
       <p class="title">产品介绍</p>
       <div class="detail_box">
-       <div v-html="imgs" class="img_box"></div>
+        <div v-html="imgs" class="img_box"></div>
       </div>
     </div>
     <footer class="footers">
@@ -36,26 +36,26 @@
 </template>
 
 <script>
-import {htmlRestore} from "../../../components/moduls/entiul"
+import { htmlRestore } from "../../../components/moduls/entiul";
 export default {
   name: "goodsItem",
   data() {
     return {
       goodsImg: "",
       goodslist: "",
-      imgs:"",
-      zifei:"",
-      jiagong:"",
-      youhui_id:"",
-      category_id:"",
-      gid:"",
-      name:"",
-      qian:"",
-      baodanfei:"",
-      zhouqi:"",
-      daimaifei:"",
-      shouyi:"",
-      addnum:"1"
+      imgs: "",
+      zifei: "",
+      jiagong: "",
+      youhui_id: "",
+      category_id: "",
+      gid: "",
+      name: "",
+      qian: "",
+      baodanfei: "",
+      zhouqi: "",
+      daimaifei: "",
+      shouyi: "",
+      addnum: "1"
     };
   },
   created() {
@@ -74,92 +74,91 @@ export default {
         this.goodsImg = res.data.info.pic;
         this.goodslist = res.data.info;
         var abc = this.goodslist.content;
-        console.log(res)
+        console.log(res);
         this.imgs = htmlRestore(abc);
-        var info = res.data.info
-        this.zifei = res.data.zhuang
-        this.jiagong = info.jiagong
-        this.youhui_id = info.youhui_id
-        this.category_id=info.category_id
-        this.gid = info.id
-        this.name = info.title
-        this.qian = info.price
-        this.baodanfei = info.fuwu_price
-        this.zhouqi = info.zhouqi
-        this.daimaifei = info.shouxufei
-        this.shouyi = info.shouyi
-        this.specjia = info.spec[0].specjia
-        this.specName =info.spec[0].specName
-        this.specPrice = info.spec[0].specPrice
+        var info = res.data.info;
+        this.zifei = res.data.zhuang;
+        this.jiagong = info.jiagong;
+        this.youhui_id = info.youhui_id;
+        this.category_id = info.category_id;
+        this.gid = info.id;
+        this.name = info.title;
+        this.qian = info.price;
+        this.baodanfei = info.fuwu_price;
+        this.zhouqi = info.zhouqi;
+        this.daimaifei = info.shouxufei;
+        this.shouyi = info.shouyi;
+        this.specjia = info.spec[0].specjia;
+        this.specName = info.spec[0].specName;
+        this.specPrice = info.spec[0].specPrice;
       });
     },
     back() {
       this.$router.go(-1);
     },
-    goumai(){
-         
-        if(this.zifei=="li"){
-          this.axios({
-            url:"/api/appapi/Order/order_post",
-            methods:"post",
-            params:{
-              gid:this.gid,
-              youhui_id:this.youhui_id,
-              total:this.qian,
-              name:this.name,
-              dai_fei:this.specjia,
-              category_id:this.category_id,
-              jiagong:this.jiagong,
-              baodanfei:this.baodanfei,
-              zhuang:"li",
-              specName:this.specName,
-              num:this.addnum,
-              danjia:this.qian,
-              daimaifei:this.daimaifei,
-              shouyi:this.shouyi,
-              zhouqi:this.zhouqi
-            }
-          }).then(res=>{
-           if(res.data.errcode==100){
+    goumai() {
+      if (this.zifei == "li") {
+        this.axios({
+          url: "/api/appapi/Order/order_post",
+          methods: "post",
+          params: {
+            gid: this.gid,
+            youhui_id: this.youhui_id,
+            total: this.qian,
+            name: this.name,
+            dai_fei: this.specjia,
+            category_id: this.category_id,
+            jiagong: this.jiagong,
+            baodanfei: this.baodanfei,
+            zhuang: "li",
+            specName: this.specName,
+            num: this.addnum,
+            danjia: this.qian,
+            daimaifei: this.daimaifei,
+            shouyi: this.shouyi,
+            zhouqi: this.zhouqi
+          }
+        }).then(res => {
+          if (res.data.errcode == 100) {
             //  this.$router.replace("/submit_order")
-           }else if(res.data.errcode==301){
-             this.$router.replace("/login")
-           }else{
-             console.error();  
-           }
-          })
-        }else{
-          this.axios({
-              url:"/api/appapi/Order/order_post",
-            methods:"post",
-            params:{
-              gid:this.gid,
-              specName:this.specName,
-              specPrice:this.specPrice,
-              danjia:this.qian,
-              dai_fei:this.specjia,
-              youhui_id:this.youhui_id,
-              category_id:this.category_id,
-              name:this.name,
-              num:this.addnum,
-              total:this.specPrice,
-              zhuang:"fei"
-            }
-          }).then(data=>{
-            console.log(data)
-              if(data.data.errcode==100){
-           var oid = data.data.id
-             this.$router.push({path:"/submit_order?",query:{ id:oid}})
-           }else if(data.data.errcode==301){
-             this.$router.replace("/login")
-           }else{
-             console.error();  
-           }
-          })
-       }
+          } else if (res.data.errcode == 301) {
+            this.$router.replace("/login");
+          } else {
+            console.error();
+          }
+        });
+      } else {
+        this.axios({
+          url: "/api/appapi/Order/order_post",
+          methods: "post",
+          params: {
+            gid: this.gid,
+            specName: this.specName,
+            specPrice: this.specPrice,
+            danjia: this.qian,
+            dai_fei: this.specjia,
+            youhui_id: this.youhui_id,
+            category_id: this.category_id,
+            name: this.name,
+            num: this.addnum,
+            total: this.specPrice,
+            zhuang: "fei"
+          }
+        }).then(data => {
+          console.log(data);
+          if (data.data.errcode == 100) {
+            var oid = data.data.id;
+            this.$router.push({ path: "/submit_order?", query: { id: oid } });
+          } else if (data.data.errcode == 301) {
+            this.$router.replace("/login");
+          } else {
+            console.error();
+          }
+        });
+      }
     }
-  },
-}
+  }
+};
 </script>
 
 <style scoped>
@@ -291,8 +290,7 @@ strong {
   bottom: 0;
   width: 100%;
 }
-.span
-.footers button {
+.span .footers button {
   width: 100%;
   height: 3rem;
   background: linear-gradient(
@@ -306,15 +304,18 @@ strong {
   font-weight: 600;
   font-family: "苹方";
 }
-.liji{
+.liji {
   width: 100%;
   height: 3.125rem;
   border: none;
-  background:linear-gradient(270deg,rgba(66,66,66,1) 0%,rgba(45,45,45,1) 100%);
+  background: linear-gradient(
+    270deg,
+    rgba(66, 66, 66, 1) 0%,
+    rgba(45, 45, 45, 1) 100%
+  );
   font-weight: 500;
   font-size: 1rem;
   color: #fff;
 }
-
 </style>
 

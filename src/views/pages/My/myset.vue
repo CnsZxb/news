@@ -13,10 +13,12 @@
         <i class="fa fa-credit-card"></i> 我的银行卡
         <i class="fa fa-angle-right fa-2x"></i>
       </div>
-      <div>
+      <router-link :to="{path:'/myaddress'}">
+      <div class="addre">
         <i class="fa fa-map-marker"></i> 收货地址管理
         <i class="fa fa-angle-right fa-2x"></i>
       </div>
+      </router-link>
       <div>
         <i class="fa fa-user-o"></i> 设置邀请人
         <i class="fa fa-angle-right fa-2x"></i>
@@ -64,7 +66,7 @@ export default {
       MessageBox({
         title: "提示",
         message: "确定要退出么",
-        showCancelButton: true
+        showCancelButton: false
       }).then(action => {
         this.axios({
           url: "/api/appapi/My/tuichu",
@@ -113,6 +115,9 @@ header i {
   line-height: 3rem;
   border-bottom: 1px solid #eee;
   border-radius: 0.625rem;
+}
+.addre{
+  color: #2c3e50;
 }
 .content i {
   display: inline-block;

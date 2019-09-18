@@ -67,6 +67,16 @@ export default new Router({
       component:resolve=>require(["../src/views/pages/Order/submit_order.vue"],resolve)
     },
     {
+      path:"/myaddress",
+      name:"/myaddress",
+      component:resolve=>require(["../src/views/pages/My/address.vue"],resolve)
+    },
+    {
+      path:"/bianji",
+      name:"/bianji",
+      component:resolve=>require(["../src/views/pages/My/bianji.vue"],resolve)
+    },
+    {
       path: '/ping',
       name: 'ping',
       component: ping

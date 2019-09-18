@@ -1,4 +1,4 @@
-var routerProduct = require("./routers/products.js");
+
 module.exports = {
   devServer: {
     // 配置信息：https://github.com/chimurai/http-proxy-middleware#options
@@ -15,9 +15,5 @@ module.exports = {
         cookieDomainRewrite: { "*": "localhost" } // 域名重写，把所有其他域名重写成localhost
       }
     },
-    // 自已编写的接口
-    before: app => {
-      routerProduct(app);
-    }
   },
 };

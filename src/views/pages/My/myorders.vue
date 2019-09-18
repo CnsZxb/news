@@ -182,7 +182,9 @@ i {
 }
 .my_tab {
   width: 100%;
-  margin-top: 3.1rem;
+  position: fixed;
+  z-index: 5;
+ top: 6rem;
   display: flex;
   justify-content: space-around;
   list-style: none;
@@ -316,5 +318,8 @@ i {
   float: left;
   margin-left: 0.6rem;
   color: red;
+}
+.content{
+  margin-top: 10rem
 }
 </style>
